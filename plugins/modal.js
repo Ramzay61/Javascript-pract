@@ -14,7 +14,7 @@ function _createModal(){
                 <p>Lorem ipsum dolor sit.</p>
             </div>
             <div class="modal-footer">
-                <input id="inHtml" value="Тест"/>
+                <input id="inHtml" value="Нажмите 'Установить', что бы поместить этот текст в толо страницы. Нажмите еще раз, что бы вернуть." style="width:400px"/>
                 <button id='btnHtml'>Установить</button>
                 <button id="btnOk"   >Ok</button>
                 <button id="btnClose">Отмена</button>
@@ -33,10 +33,6 @@ $.modal=function(options){
     let modalWin={
         /* Инициализация */        
         init(options){
-            this.closable=options.closable
-            spanTitle.innerHTML=title=options.title
-            document.getElementById('divBody').innerHTML=content=options.content
-            document.getElementsByClassName('modal-window')[0].style.width=options.width
             
             btnHtml.onclick=()=>this.setContent()
             btnOk.onclick=()=>this.close('Ok')
@@ -51,11 +47,21 @@ $.modal=function(options){
         onClose:(data)=>{if(data!=null)data()},
         /*  Открытие окна */
         open(){
+
             if($modal==null) {
                 $modal=_createModal();
                 this.init(options)
             }
+
+            this.closable=document.getElementById('cbClosable').checked
+            spanTitle.innerHTML=document.getElementById('txTitle').value
+            document.getElementById('divBody').innerHTML=content=options.content
+            document.getElementsByClassName('modal-window')[0].style.width=document.getElementById('txWidth').value+'px' // options.width
+
             if(this.onOpen!=null) this.onOpen();
+
+
+
             $modal.classList.add('open') // В список классов эл-та div class="vmodal" добавляем класс "open" 
         },
         /* Закрытие окна */
@@ -63,10 +69,7 @@ $.modal=function(options){
             if(!this.closable){
                 alert('Окно незакрываемое, скажите спасибо разработчику.'
                      +' Вам придется перегрузить страницу, потому что на закрытие окна'
-                     +' по клику в затененной области он положил...'
-                     +'\n\n'
-                     +'Если вы хотите, что бы окно нормально закрывалось, вам нужно '
-                     +'установить в файле index.js в объекте options.closable = true ')
+                     +' по клику в затененной области он положил...')
                 return
             }
             
