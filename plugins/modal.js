@@ -33,6 +33,10 @@ $.modal=function(options){
     let modalWin={
         /* Инициализация */        
         init(options){
+            this.closable=options.closable
+            spanTitle.innerHTML=options.title
+            document.getElementById('divBody').innerHTML=options.content
+            document.getElementsByClassName('modal-window')[0].style.width=options.width
             
             btnHtml.onclick=()=>this.setContent()
             btnOk.onclick=()=>this.close('Ok')
@@ -52,11 +56,6 @@ $.modal=function(options){
                 $modal=_createModal();
                 this.init(options)
             }
-
-            this.closable=document.getElementById('cbClosable').checked
-            spanTitle.innerHTML=document.getElementById('txTitle').value
-            document.getElementById('divBody').innerHTML=content=options.content
-            document.getElementsByClassName('modal-window')[0].style.width=document.getElementById('txWidth').value+'px' // options.width
 
             if(this.onOpen!=null) this.onOpen();
 

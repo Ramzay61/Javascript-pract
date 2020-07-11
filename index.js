@@ -1,15 +1,20 @@
 
 let options={
-    title:'Про Греку',
+    title:'Заголовок, определенный в options',
     closable:true,
-    content: '<span><p>Ехал грека через реку, видит Грека - в реке рак.</span>'
-            +'<span><p>Сунул Грека руку в реку, рак за руку Греку цап (этот Грека был чудак)</span>',
-    width: document.getElementById('txWidth').value+'px'
+    content: '<span>Некий контекст, определенный в options</span>',
+    width: '600px'
 }
 
 const modal=$.modal(options)
 
-modal.onOpen=function(){alert('\n\nсобытие onOpen')}
+modal.onOpen=function(){
+    this.closable=document.getElementById('cbClosable').checked
+    spanTitle.innerHTML=document.getElementById('txTitle').value
+    document.getElementById('divBody').innerHTML='<span><p>Ехал грека через реку, видит Грека - в реке рак.</span>'
+                                                +'<span><p>Сунул Грека руку в реку, рак за руку Греку цап (этот Грека был чудак)</span>'
+    document.getElementsByClassName('modal-window')[0].style.width=document.getElementById('txWidth').value+'px' // options.width
+    alert('\n\nсобытие onOpen')}
 
 modal.beforeClose=(action) => {
     if(action=='Ok'){
